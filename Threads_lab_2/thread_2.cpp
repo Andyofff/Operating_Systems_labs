@@ -1,7 +1,5 @@
-﻿#include <iostream>
+#include <iostream>
 #include <windows.h>
-
-using namespace std;
 
 int* arr;
 int arr_size;
@@ -28,7 +26,7 @@ DWORD WINAPI minmax(LPVOID par) {
 
     EnterCriticalSection(&cs);
 
-    cout << "Min: " << Min << " Max: " << Max << '\n';
+    std::cout << "Min: " << Min << " Max: " << Max << '\n';
 
     LeaveCriticalSection(&cs);
     return 0;
@@ -44,19 +42,19 @@ DWORD WINAPI average(LPVOID par)
     avg = sum / arr_size;
     EnterCriticalSection(&cs);
 
-    cout << "Avg: " << avg << endl;
+    std::cout << "Avg: " << avg << std::endl;
 
     LeaveCriticalSection(&cs);
     return 0;
 }
 int main()
 {
-    cout << "Enter size of array: ";
-    cin >> arr_size;
+    std::cout << "Enter size of array: ";
+    std::cin >> arr_size;
     arr = new int[arr_size];
-    cout << "Enter ellements of array: ";
+    std::cout << "Enter ellements of array: ";
     for (int i = 0; i < arr_size; i++){
-        cin >> arr[i];
+        std::cin >> arr[i];
     }
 
     InitializeCriticalSection(&cs);
@@ -67,12 +65,12 @@ int main()
     WaitForSingleObject(mm, INFINITE);
     WaitForSingleObject(avrg, INFINITE);
 
-    cout << "Source array: ";
+    std::cout << "Source array: ";
     for (int i = 0; i < arr_size; i++){
-        cout << arr[i] << " ";
+        std::cout << arr[i] << " ";
     }
 
-    cout << '\n';
+    std::cout << '\n';
     
     for (int i = 0; i < arr_size; i++) {
         if (arr[i] == Min || arr[i] == Max) {
@@ -80,10 +78,10 @@ int main()
         }
     }
     
-    cout << "New array: ";
+    std::cout << "New array: ";
     for (int i = 0; i < arr_size; i++)
     {
-        cout << arr[i] << " ";
+        std::cout << arr[i] << " ";
     }
     
     DeleteCriticalSection(&cs);
